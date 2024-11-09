@@ -80,27 +80,12 @@ const JobListing = () => {
            </SelectTrigger>
            <SelectContent>
              <SelectGroup>
-               {State.getStatesOfCountry("IN").map(({name}) => {
+               {State.getStatesOfCountry("US").map(({name}) => {
                  return (
                  <SelectItem key={name} value={name}>{name}</SelectItem>
                  );
                })}
 
-             </SelectGroup>
-           </SelectContent>
-         </Select>
-
-         <Select value={company_id} onValueChange={(value) => setCompany_id(value)}>
-           <SelectTrigger>
-             <SelectValue placeholder="Filter by Company" />
-           </SelectTrigger>
-        <SelectContent>
-             <SelectGroup>
-               {/* {companies.map(({ name,id }) => {
-                 return (
-                   <SelectItem key={name} value={id}>{name}</SelectItem>
-                 );
-               })} */}
              </SelectGroup>
            </SelectContent>
          </Select>
@@ -118,7 +103,7 @@ const JobListing = () => {
           {jobs?.length ? (
             jobs.map((job) => {
               return <JobCard
-                key={job.id}
+                key={job.job_id}
                 job={job}
                 savedInit={job?.saved?.length > 0}
               />

@@ -10,6 +10,7 @@ import SavedJobs from './Pages/saved-jobs';
 import MyJobs from './Pages/my-jobs';
 import { ThemeProvider } from './components/theme-provider';
 import ProtectedRoute from './components/protected-route';
+import JobRecommendationForm from './Pages/SkillConnect';
 
 const router = createBrowserRouter([
   {
@@ -54,6 +55,12 @@ const router = createBrowserRouter([
         path: '/my-jobs',
         element: <ProtectedRoute>
           <MyJobs />,
+        </ProtectedRoute>
+      },
+      {
+        path:'/skill_connect',
+        element:<ProtectedRoute>
+          <JobRecommendationForm/>
         </ProtectedRoute>
       }
     ]

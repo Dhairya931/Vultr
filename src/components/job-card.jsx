@@ -39,7 +39,7 @@ const JobCard = ({
   return (
     <Card className='flex flex-col'>
       <CardHeader>
-        <CardTitle className="flex justify-between font-bold">{job.title}
+        <CardTitle className="flex justify-between font-bold">{job.job_title}
           {isMyJob && (
             <Trash2Icon fill='red' size={18} className='text-red-300 cursor-pointer' />
           )}
@@ -48,16 +48,16 @@ const JobCard = ({
  
       <CardContent className="flex flex-col gap-4 flex-1">
         <div className='flex justify-between'>
-          {job.company && <img src={job.company.logo_url} className='h-6'/>}
+          {job.company.name}
           <div className='flex gap-2 items-center'>
             <MapPinIcon size={15} /> {job.location}
           </div>
         </div>
         <hr />
-        {job.description.substring(0, job.description.indexOf("."))}
+        {job.job_description}
       </CardContent>
       <CardFooter className="flex gap-2">
-        <Link to={`/job/${job.id}`} className='flex-1'>
+        <Link to={`/job/${job.job_id}`} className='flex-1'>
         <Button variant = "secondary" className="w-full">
           More Details
         </Button>

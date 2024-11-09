@@ -25,8 +25,21 @@ const Header = () => {
     <>
       <nav className='p-2 flex justify-between items-center'>
         <Link>
+          <div className='flex items-center'>
           <img src='/logo.png' alt='JobGenie logo' className="h-20 rounded-full p-2" />
+          <p>JobGenie</p>
+          </div>
         </Link>
+        <div className=''>
+          <ul className='flex items-center gap-8'>
+            <li><Link to='/skill_connect'>
+          <Button variant="blue" size="lg">SkillConnect</Button>
+        </Link></li>
+            <li><Link to='/jobs'>
+          <Button variant="secondary" size="lg">Gennie</Button>
+        </Link></li>
+          </ul>
+        </div>
         <div className='flex gap-8'>
           <SignedOut>
             <Button variant='outline' onClick={() => setShowSignIn(true)}>Login</Button>

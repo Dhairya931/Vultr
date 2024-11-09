@@ -3,7 +3,7 @@ import supabaseClient from "@/utils/supabase";
 export async function getJobs(token, { location, company_id, searchQuery }) {
     const supabase = await supabaseClient(token);
 
-    let query = supabase.from("jobs").select("*, company:companies(name,logo_url),saved: saved_jobs(id)");
+    let query = supabase.from("jobs").select("*, company:companies(name), saved: saved_jobs(id)");
 
     if (location){
         query = query.eq("location", location);
@@ -63,8 +63,8 @@ export async function getSingleJob(token, {job_id}) {
 
         const { data, error } = await supabase
         .from("jobs")
-        .select("*, company:companies(name,logo_url), applications: applications(*)")
-        .eq("id",job_id)
+        .select("*, company:companies(name), applications: applications(*)")
+        .eq("job_id",job_id)
         .single();
 
         if (error) {

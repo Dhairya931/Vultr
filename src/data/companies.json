@@ -1,7 +1,7 @@
 [
     {
-        "name": "Amazon",
-        "path": "/companies/amazon.svg",
+        "name": "Vultr",
+        "path": "/companies/vultr.png",
         "id": "1"
     },
     {
@@ -38,5 +38,10 @@
         "name": "Uber",
         "path": "/companies/uber.svg",
         "id": "8"
+    },
+    {
+        "name": "Amazon",
+        "path": "/companies/amazon.svg",
+        "id": "9"
     }
 ]
