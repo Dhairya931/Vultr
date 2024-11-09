@@ -1,10 +1,19 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { Card } from '@/components/ui/card';
+import React, { useState } from "react";
+import axios from "axios";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardFooter,
+} from "@/components/ui/card";
+import { MapPinIcon } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 const JobRecommendationForm = () => {
-  const [skills, setSkills] = useState([]);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [recommendedJobs, setRecommendedJobs] = useState([]);
 
   const handleInputChange = (e) => {
@@ -14,57 +23,85 @@ const JobRecommendationForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Split input by commas and trim whitespace
-    const skillsArray = input.split(',').map((skill) => skill.trim());
+    const skillsArray = input.split(",").map((skill) => skill.trim());
 
     try {
-      const response = await axios.post('http://139.84.174.127:5000/recommend_jobs', { skills: skillsArray });
-      setRecommendedJobs(response.data); // Set recommended jobs to display as cards
+      const response = await axios.post(
+        "http://139.84.174.127:5000/recommend_jobs",
+        { skills: skillsArray }
+      );
+  
+      setRecommendedJobs(response.data);
     } catch (error) {
-      console.error('Error fetching recommended jobs:', error);
+      console.error("Error fetching recommended jobs:", error);
+      if (error.response) {
+        console.log(error.response.data);
+      }
     }
   };
 
   return (
-    <div>
-      <h2>Job Recommendation Form</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Skills (comma-separated):
-          <input
-            type="text"
-            value={input}
-            onChange={handleInputChange}
-            placeholder="e.g., Python, React, Node.js"
-          />
-        </label>
-        <button type="submit">Submit</button>
+    <div className="mt-5">
+      <h1 className="mb-5 text-center text-3xl">Welcome to SkillConnect 🤓</h1>
+      <form onSubmit={handleSubmit} className="flex flex-wrap gap-2">
+        <Input
+          type="text"
+          value={input}
+          onChange={handleInputChange}
+          placeholder="Enter Top Skills (comma-separated)"
+          className="h-full flex-1 px-4 text-md"
+        />
+        <Button type="submit" className="h-full sm:w-28" variant="destructive">
+          Search
+        </Button>
       </form>
 
       <div>
-        <h3>Recommended Jobs:</h3>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
-          {recommendedJobs.map((job, index) => (
-            // <div
-            //   key={index}
-            //   style={{
-            //     border: '1px solid #ddd',
-            //     padding: '1rem',
-            //     borderRadius: '5px',
-            //     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-            //     width: '200px',
-            //   }}
-            // >
-            //   <h4>{job.job_title}</h4>
-            //   <p>{job.job_description}</p>
-            //   <p><strong>Location:</strong> {job.location}</p>
-            //   <p><strong>Company:</strong> {job.company}</p>
-            //   <p><strong>Matching Score:</strong> {(job.similarity_score * 100).toFixed(2)}%</p>
-
-            // </div>
-            <Card className-
-          ))}
-        </div>
+        {recommendedJobs.length === 0 ? (
+          <div className="mt-12 text-center text-3xl">
+            <p>Recommendation by skills</p>
+          </div>
+        ) : (
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "1rem",
+              marginTop: "3rem",
+            }}
+          >
+            {recommendedJobs.map((job, index) => (
+              <Card key={index} className="flex flex-col">
+                <CardHeader>
+                  <CardTitle className="flex justify-between font bold">
+                    {job.job_title}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="flex flex-col gap-4 flex-1">
+                  <div className="flex justify-between">
+                    <div className="flex gap-2 items-center">
+                      <MapPinIcon size={15} /> {job.location}
+                    </div>
+                  </div>
+                  <hr />
+                  <p>Experience: {job.experience_required} Yr</p>
+                  {job.job_description}
+                </CardContent>
+                <CardFooter className="flex gap-2">
+                  <Link to={`/job/${job.job_id}`} className="flex-1">
+                    <Button variant="secondary" className="w-full">
+                      More Details
+                    </Button>
+                  </Link>
+                  <p>
+                    <strong>Matching Score:</strong>{" "}
+                    {(job.similarity_score * 100).toFixed(2)}%
+                  </p>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
