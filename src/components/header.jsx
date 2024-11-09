@@ -35,7 +35,7 @@ const Header = () => {
             <li><Link to='/skill_connect'>
           <Button variant="blue" size="lg">SkillConnect</Button>
         </Link></li>
-            <li><Link to='/jobs'>
+            <li><Link to='/chatbot'>
           <Button variant="secondary" size="lg">Gennie</Button>
         </Link></li>
           </ul>

@@ -11,6 +11,7 @@ import MyJobs from './Pages/my-jobs';
 import { ThemeProvider } from './components/theme-provider';
 import ProtectedRoute from './components/protected-route';
 import JobRecommendationForm from './Pages/SkillConnect';
+import Gennie from './Pages/Gennie';
 
 const router = createBrowserRouter([
   {
@@ -62,7 +63,13 @@ const router = createBrowserRouter([
         element:<ProtectedRoute>
           <JobRecommendationForm/>
         </ProtectedRoute>
-      }
+      },
+      {
+        path:'/chatbot',
+        element:<ProtectedRoute>
+          <Gennie/>
+        </ProtectedRoute>
+      },
     ]
   },
 ]);
